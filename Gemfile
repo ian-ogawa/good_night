@@ -39,6 +39,15 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+  # use for unit test and integration test
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+
+  # use for local environtment variable configuration
+  gem 'dotenv-rails'
 end
 
 group :development do

@@ -36,3 +36,8 @@
 /config/database.yml
 /db/schema.rb
 
+# ignore envirotnment variable for development and test
+.env
+
+# ignore gemfile version
+Gemfile.lock
