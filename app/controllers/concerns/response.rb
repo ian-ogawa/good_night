@@ -6,6 +6,12 @@ module Response
     render json: { data: set_object(object), page: page, meta: response_meta(message, status) }, status: status
   end
 
+  def json_response_with_serializer(object, status = :ok, message = nil, page = {}, **options)
+    serialized_object = ActiveModelSerializers::SerializableResource.new(set_object(object), options)
+    serialized_object = serialized_object.as_json
+    json_response(serialized_object, status, message, page)
+  end
+
   def response_meta(message = nil, status = :ok)
     status_code = get_status_code(status)
 
