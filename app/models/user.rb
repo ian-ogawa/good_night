@@ -8,5 +8,7 @@
 #  updated_at :datetime         not null
 #
 class User < ApplicationRecord
+	has_many :clock_ins, dependent: :destroy
+
 	validates :name, presence: true, uniqueness: true
 end
