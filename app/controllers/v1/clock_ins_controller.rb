@@ -3,21 +3,14 @@ class V1::ClockInsController < ApplicationController
 
 	def index
 		clock_ins = current_user.try(:clock_ins)
-		if clock_ins.blank?
-			status = :no_content
-			message = "Data empty"
-		else
-			status = :ok
-			message = "Data found"
-		end
-		json_response({ clock_ins: clock_ins }, status, message)
+		json_response({ clock_ins: clock_ins.decorate }, :ok, clock_ins.blank? ? "Data empty" : "Data found")
 	end
 
 	def create
 		clock_in = ClockIn.new(clock_in_params)
     if clock_in.save
       status = :created
-      clock_ins = current_user(clock_in_params[:user_id]).clock_ins
+      clock_ins = current_user(clock_in_params[:user_id]).clock_ins.decorate
     else
       status = :unprocessable_entity
       message = clock_in.errors.full_messages
