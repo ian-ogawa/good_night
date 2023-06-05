@@ -1,5 +1,17 @@
 class V1::ClockInsController < ApplicationController
-	before_action :clock_in_params
+	before_action :clock_in_params, only: :create
+
+	def index
+		clock_ins = current_user.try(:clock_ins)
+		if clock_ins.blank?
+			status = :no_content
+			message = "Data empty"
+		else
+			status = :ok
+			message = "Data found"
+		end
+		json_response({ clock_ins: clock_ins }, status, message)
+	end
 
 	def create
 		clock_in = ClockIn.new(clock_in_params)
