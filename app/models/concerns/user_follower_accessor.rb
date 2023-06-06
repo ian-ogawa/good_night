@@ -15,6 +15,10 @@ module UserFollowerAccessor
 
 				{ is_success: is_success, message: message }
 			end
+
+			def self.following_list(current_user)
+				
+			end
     end
   end
 end

@@ -1,6 +1,11 @@
 class V1::UserFollowersController < ApplicationController
 	before_action :user_follower_params, only: :create
 
+	def index
+		user_followers = current_user.followings
+		json_response_with_serializer(user_followers, status, '', {}, { adapter: :json, root: "user" })
+	end
+
 	def create
 		user_follower = UserFollower.new(user_follower_params)
     
