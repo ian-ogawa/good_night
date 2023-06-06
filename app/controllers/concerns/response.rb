@@ -2,11 +2,11 @@ module Response
 
   STATUS_SUCCESS = 100..399
 
-  def json_response(object, status = :ok, message = nil, page = {})
+  def json_response(object, status = :ok, message = nil, page = {}, options = {})
     render json: { data: set_object(object), page: page, meta: response_meta(message, status) }, status: status
   end
 
-  def json_response_with_serializer(object, status = :ok, message = nil, page = {}, **options)
+  def json_response_with_serializer(object, status = :ok, message = nil, page = {}, options = {})
     serialized_object = ActiveModelSerializers::SerializableResource.new(set_object(object), options)
     serialized_object = serialized_object.as_json
     json_response(serialized_object, status, message, page)
