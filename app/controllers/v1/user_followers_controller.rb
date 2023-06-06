@@ -15,6 +15,20 @@ class V1::UserFollowersController < ApplicationController
     json_response_with_serializer(user_follower, status, message, {}, { adapter: :json, root: "user_follower" })
 	end
 
+	def unfollow
+		unfollow_user = UserFollower.unfollow_user(current_user.id, params[:following_id])
+    
+    if unfollow_user[:is_success]
+      status = :ok
+      message = 'Unfollow success'
+    else
+      status = :unprocessable_entity
+      message = unfollow_user[:message]
+    end
+
+    json_response({ user_follower: {} }, status, message)
+	end
+
 	private
 		def user_follower_params
 			params.require(:user_follower).permit(:following_id, :follower_id)
