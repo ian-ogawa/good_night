@@ -1,5 +1,11 @@
 class V1::UsersController < ApplicationController
-	before_action :user_params
+	before_action :user_params, only: :create
+
+	def index
+		users = User.except_me(current_user.id)
+		# users = User.all
+		json_response({ users: users }, :ok)
+	end
 
 	def create
 		user = User.new(user_params)
