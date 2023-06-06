@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :user_followers
   namespace :v1, defaults: { format: :json } do
-    resources :users, only: :create
+    resources :users, only: [ :create, :index ]
     resources :clock_ins, only: [ :create, :index ]
+    resources :user_followers, only: :create
   end
 end
